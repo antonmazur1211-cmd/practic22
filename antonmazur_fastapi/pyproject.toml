@@ -1,0 +1,21 @@
+[project]
+name = "antonmazur-fastapi"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = " Dmytro Klepak",email = "dmitrooleksandrovic33@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.136.1,<0.137.0)",
+    "uvicorn (>=0.46.0,<0.47.0)",
+    "asyncpg (>=0.31.0,<0.32.0)"
+]
+
+[tool.poetry]
+packages = [{include = "antonmazur_fastapi", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

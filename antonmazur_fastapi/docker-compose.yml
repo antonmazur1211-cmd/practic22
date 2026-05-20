@@ -1,0 +1,45 @@
+﻿version: '3.8'
+
+services:
+  # FastAPI сервіс
+  fastapi:
+    build: .
+    container_name: antonmazur_fastapi
+    ports:
+      - "8000:8000"
+    volumes:
+      # Підмонтовування робочої папки до папки контейнера
+      - ./app:/app/app
+      - ./run.py:/app/run.py
+    environment:
+      - DATABASE_URL=postgresql://antonmazur:password123@postgres:5432/antonmazur_db
+    depends_on:
+      - postgres
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  # PostgreSQL сервіс
+  postgres:
+    image: postgres:15-alpine
+    container_name: antonmazur_postgres
+    environment:
+      POSTGRES_USER: antonmazur
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: antonmazur_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # Зберігання даних PostgreSQL
+      - postgres_data:/var/lib/postgresql/data
+      # Ініціалізаційні скрипти
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U antonmazur -d antonmazur_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Томи для зберігання даних
+volumes:
+  postgres_data:

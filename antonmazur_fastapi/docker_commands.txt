@@ -1,0 +1,46 @@
+﻿=== ЛАБОРАТОРНА РОБОТА №2 ===
+=== КОМАНДИ ДЛЯ ВИКОНАННЯ ===
+
+1. ПЕРЕВІРКА DOCKER:
+   docker --version
+   docker-compose --version
+
+2. ЗБІРКА ТА ЗАПУСК (ОСНОВНІ КОМАНДИ):
+   docker-compose build
+   docker-compose up -d
+   docker-compose ps
+
+3. ПЕРЕВІРКА ЛОГІВ:
+   docker logs antonmazur_fastapi
+   docker logs antonmazur_postgres
+
+4. ЗУПИНКА КОНТЕЙНЕРІВ:
+   docker-compose down
+
+5. ЗАПУСК КОНТЕЙНЕРІВ ДЛЯ РОЗРОБКИ:
+   docker-compose -f docker-compose.dev.yml up -d
+
+6. ПЕРЕВІРКА ВСЕРЕДИНІ КОНТЕЙНЕРА FASTAPI:
+   docker exec -it antonmazur_fastapi /bin/bash
+   pip list
+   python -c "import fastapi; print(fastapi.__version__)"
+   uvicorn --version
+
+7. ПЕРЕВІРКА ВСЕРЕДИНІ КОНТЕЙНЕРА POSTGRES:
+   docker exec -it antonmazur_postgres psql -U antonmazur -d antonmazur_db
+   \dt
+   SELECT * FROM users;
+   \q
+
+8. ТЕСТУВАННЯ API:
+   curl http://localhost:8000/
+   curl http://localhost:8000/health
+   curl -X POST "http://localhost:8000/users?name=NewUser&email=new@example.com"
+   curl http://localhost:8000/users
+
+9. ПЕРЕВІРКА ПІДМОНТОВУВАННЯ ПАПКИ:
+   # Змініть код в app/main.py і переконайтесь що сервер перезавантажився
+
+10. ОЧИЩЕННЯ ВСЬОГО:
+    docker-compose down -v
+    docker system prune -a
