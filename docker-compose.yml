@@ -1,0 +1,15 @@
+﻿services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: antonmazur_postgres
+    environment:
+      POSTGRES_USER: antonmazur
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: antonmazur_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

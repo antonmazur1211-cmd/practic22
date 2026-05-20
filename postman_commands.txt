@@ -1,0 +1,53 @@
+﻿=== POSTMAN ТЕСТИ ДЛЯ ЛАБИ №3 ===
+
+1. CREATE USER (POST) http://localhost:8000/users/
+   Headers: Content-Type: application/json
+   Body (raw JSON):
+   {
+     "name": "Anton Mazur",
+     "email": "anton@example.com",
+     "age": 25
+   }
+
+2. GET ALL USERS (GET) http://localhost:8000/users/
+
+3. GET USER BY ID (GET) http://localhost:8000/users/1
+
+4. UPDATE USER (PUT) http://localhost:8000/users/1
+   Body:
+   {
+     "name": "Anton Mazur Updated",
+     "age": 26
+   }
+
+5. DELETE USER (DELETE) http://localhost:8000/users/1
+
+6. GET STATS (GET) http://localhost:8000/users/stats/count
+
+=== ПРИКЛАДИ НЕВАЛІДНИХ ДАНИХ ===
+
+- Порожнє ім'я:
+  {"name": "", "email": "test@example.com"}
+
+- Невірний email:
+  {"name": "Test", "email": "invalid-email"}
+
+- Невірний вік:
+  {"name": "Test", "email": "test@example.com", "age": 200}
+
+=== CURL КОМАНДИ (для терміналу) ===
+
+# Створити користувача
+curl -X POST http://localhost:8000/users/ -H "Content-Type: application/json" -d "{\"name\":\"Anton Mazur\",\"email\":\"anton@example.com\",\"age\":25}"
+
+# Отримати всіх
+curl http://localhost:8000/users/
+
+# Отримати одного
+curl http://localhost:8000/users/1
+
+# Оновити
+curl -X PUT http://localhost:8000/users/1 -H "Content-Type: application/json" -d "{\"name\":\"Anton Mazur Updated\",\"age\":26}"
+
+# Видалити
+curl -X DELETE http://localhost:8000/users/1
